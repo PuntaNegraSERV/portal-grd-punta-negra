@@ -1,142 +1,189 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal GRD Punta Negra</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal GRD Punta Negra</title>
 
-    <style>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
-        body{
-            font-family: Arial, sans-serif;
-            margin:0;
-            background:#f5f5f5;
-        }
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      margin:0;
+      background:#f5f5f5;
+    }
 
-        header{
-            background:#003366;
-            color:white;
-            padding:30px;
-            text-align:center;
-        }
+    header{
+      background:#003366;
+      color:white;
+      padding:30px;
+      text-align:center;
+    }
 
-        nav{
-            background:#00509e;
-            padding:15px;
-            text-align:center;
-        }
+    nav{
+      background:#00509e;
+      padding:15px;
+      text-align:center;
+    }
 
-        nav a{
-            color:white;
-            margin:15px;
-            text-decoration:none;
-            font-weight:bold;
-        }
+    nav a{
+      color:white;
+      margin:15px;
+      text-decoration:none;
+      font-weight:bold;
+    }
 
-        section{
-            background:white;
-            margin:20px;
-            padding:20px;
-            border-radius:10px;
-        }
+    section{
+      background:white;
+      margin:20px;
+      padding:20px;
+      border-radius:10px;
+    }
 
-        .estado{
-            font-size:30px;
-            text-align:center;
-            color:green;
-            font-weight:bold;
-        }
+    .estado{
+      font-size:30px;
+      text-align:center;
+      color:green;
+      font-weight:bold;
+    }
 
-        footer{
-            background:#003366;
-            color:white;
-            text-align:center;
-            padding:20px;
-        }
+    #map{
+      height:500px;
+      width:100%;
+      border-radius:10px;
+      border:2px solid #003366;
+    }
 
-    </style>
-
+    footer{
+      background:#003366;
+      color:white;
+      text-align:center;
+      padding:20px;
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
-
-    <h1>Portal Distrital de Gestión del Riesgo de Desastres</h1>
-
-    <h2> Municipalidad Distrital de Punta Negra </h2>
-
+  <h1>Portal Distrital de Gestión del Riesgo de Desastres</h1>
+  <h2>Municipalidad Distrital de Punta Negra</h2>
 </header>
 
 <nav>
-
-    <a href="#">Inicio</a>
-
-    <a href="#">Quebrada Cruz de Hueso</a>
-
-    <a href="#">Tsunami</a>
-
-    <a href="#">Comunicados</a>
-
-    <a href="#">Emergencias</a>
-
+  <a href="#inicio">Inicio</a>
+  <a href="#quebrada">Quebrada Cruz de Hueso</a>
+  <a href="#visor">Visor de riesgos</a>
+  <a href="#tsunami">Tsunami</a>
+  <a href="#emergencias">Emergencias</a>
 </nav>
 
-<section>
-
-    <h2>Estado actual del distrito</h2>
-
-    <div class="estado">
-
-        🟢 NORMAL
-
-    </div>
-
-    <p style="text-align:center;">
-
-        No se reportan condiciones que indiquen incremento del riesgo.
-
-    </p>
-
+<section id="inicio">
+  <h2>Estado actual del distrito</h2>
+  <div class="estado">🟢 NORMAL</div>
+  <p style="text-align:center;">
+    No se reportan condiciones que indiquen incremento del riesgo.
+  </p>
 </section>
 
 <section>
-
-    <h2>Peligros priorizados</h2>
-
-    <ul>
-
-        <li>🌊 Tsunami</li>
-
-        <li>🏔️ Flujos de detritos (Quebrada Cruz de Hueso)</li>
-
-        <li>🌧️ Lluvias intensas</li>
-
-        <li>🌊 Oleajes anómalos</li>
-
-        <li>🌎 Sismos</li>
-
-    </ul>
-
+  <h2>Peligros priorizados</h2>
+  <ul>
+    <li>🌊 Tsunami</li>
+    <li>🏔️ Flujos de detritos: Quebrada Cruz de Hueso</li>
+    <li>🌧️ Lluvias intensas</li>
+    <li>🌊 Oleajes anómalos</li>
+    <li>🌎 Sismos</li>
+  </ul>
 </section>
 
-<section>
+<section id="quebrada">
+  <h2>PROTO-SAT Cruz de Hueso</h2>
+  <p>
+    Sistema preliminar de monitoreo orientado a complementar las acciones de vigilancia y preparación ante eventos asociados a lluvias intensas y activación de quebradas.
+  </p>
+</section>
 
-    <h2>PROTO-SAT Cruz de Hueso</h2>
+<section id="visor">
+  <h2>Visor geográfico de riesgos</h2>
+  <p>
+    Visualización preliminar de información territorial vinculada a la Gestión del Riesgo de Desastres del distrito de Punta Negra.
+  </p>
+  <div id="map"></div>
+</section>
 
-    <p>
+<section id="tsunami">
+  <h2>Recomendaciones ante tsunami</h2>
+  <p>
+    En caso de sismo fuerte o alerta de tsunami, evacúe inmediatamente hacia zonas seguras y siga las indicaciones de las autoridades.
+  </p>
+</section>
 
-        Sistema preliminar de monitoreo orientado a complementar las acciones de vigilancia y preparación ante eventos asociados a lluvias intensas y activación de quebradas.
-
-    </p>
-
+<section id="emergencias">
+  <h2>Emergencias</h2>
+  <p>
+    Manténgase informado mediante los canales oficiales de la Municipalidad Distrital de Punta Negra.
+  </p>
 </section>
 
 <footer>
-
-    Municipalidad Distrital de Punta Negra - Subgerencia de Gestión del Riesgo de Desastres
-
+  Municipalidad Distrital de Punta Negra - Subgerencia de Gestión del Riesgo de Desastres
 </footer>
 
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+  var map = L.map('map').setView([-12.365, -76.795], 13);
+
+  var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© OpenStreetMap'
+  }).addTo(map);
+
+  var satelite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/' +
+    'World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    attribution: 'Tiles © Esri'
+  });
+
+  var baseMaps = {
+    "Mapa base": osm,
+    "Imagen satelital": satelite
+  };
+
+  var quebrada = L.polyline([
+    [-12.325, -76.850],
+    [-12.340, -76.835],
+    [-12.355, -76.815],
+    [-12.370, -76.795],
+    [-12.385, -76.780]
+  ], {
+    color: 'red',
+    weight: 4
+  }).bindPopup("Quebrada Cruz de Hueso - trazo referencial");
+
+  var plaza = L.marker([-12.367, -76.795])
+    .bindPopup("Zona urbana referencial - Punta Negra");
+
+  var puntoCritico = L.circleMarker([-12.355, -76.815], {
+    radius: 8,
+    color: 'orange',
+    fillColor: 'orange',
+    fillOpacity: 0.8
+  }).bindPopup("Punto crítico referencial");
+
+  var capasRiesgo = {
+    "Quebrada Cruz de Hueso": quebrada,
+    "Zona urbana referencial": plaza,
+    "Punto crítico referencial": puntoCritico
+  };
+
+  quebrada.addTo(map);
+  plaza.addTo(map);
+  puntoCritico.addTo(map);
+
+  L.control.layers(baseMaps, capasRiesgo).addTo(map);
+</script>
+
 </body>
-  
+</html>

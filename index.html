@@ -81,10 +81,11 @@
 
 <section id="inicio">
   <h2>Estado actual del distrito</h2>
-  <div class="estado">🟢 NORMAL</div>
-  <p style="text-align:center;">
-    No se reportan condiciones que indiquen incremento del riesgo.
-  </p>
+
+  <div id="estadoDistrito" style="text-align:center;">
+    Cargando estado del distrito...
+  </div>
+
 </section>
 
 <section>
@@ -187,6 +188,26 @@
       L.control.layers(baseMaps, capasRiesgo).addTo(map);
       map.fitBounds(rutas.getBounds());
     });
+  fetch('estado.json')
+  .then(response => response.json())
+  .then(data => {
+
+    let html = `
+      <div style="font-size:24px; line-height:1.8;">
+        🌊 Oleaje: ${data.oleaje.toUpperCase()}<br>
+        🏔️ Quebrada: ${data.quebrada.toUpperCase()}<br>
+        🌎 Tsunami: ${data.tsunami.toUpperCase()}<br>
+        🌧️ Lluvias: ${data.lluvias.toUpperCase()}
+      </div>
+
+      <p>
+        Última actualización: ${data.actualizacion}
+      </p>
+    `;
+
+    document.getElementById("estadoDistrito").innerHTML = html;
+
+  });
 </script>
 </body>
 </html>

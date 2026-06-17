@@ -151,17 +151,6 @@
     "Imagen satelital": satelite
   };
 
-  var quebrada = L.polyline([
-    [-12.325, -76.850],
-    [-12.340, -76.835],
-    [-12.355, -76.815],
-    [-12.370, -76.795],
-    [-12.385, -76.780]
-  ], {
-    color: 'red',
-    weight: 4
-  }).bindPopup("Quebrada Cruz de Hueso - trazo referencial");
-
   var plaza = L.marker([-12.367, -76.795])
     .bindPopup("Zona urbana referencial - Punta Negra");
 
@@ -173,17 +162,31 @@
   }).bindPopup("Punto crítico referencial");
 
   var capasRiesgo = {
-    "Quebrada Cruz de Hueso": quebrada,
     "Zona urbana referencial": plaza,
     "Punto crítico referencial": puntoCritico
   };
 
-  quebrada.addTo(map);
   plaza.addTo(map);
   puntoCritico.addTo(map);
 
-  L.control.layers(baseMaps, capasRiesgo).addTo(map);
-</script>
+  fetch('data/rutas_flujo_2.geojson')
+    .then(response => response.json())
+    .then(data => {
+      var rutas = L.geoJSON(data, {
+        style: {
+          color: '#00B050',
+          weight: 5
+        },
+        onEachFeature: function(feature, layer) {
+          layer.bindPopup('Ruta de evacuación');
+        }
+      }).addTo(map);
 
+      capasRiesgo["Rutas de evacuación"] = rutas;
+
+      L.control.layers(baseMaps, capasRiesgo).addTo(map);
+      map.fitBounds(rutas.getBounds());
+    });
+</script>
 </body>
 </html>
